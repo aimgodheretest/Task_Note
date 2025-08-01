@@ -1,12 +1,20 @@
 import expresss from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+
 import notesRoutes from "../src/routes/notesRoutes.js";
 import connectDB from "../src/db/db.js";
 import rateLimiter from "../src/middleware/rateLimiter.js";
-import dotenv from "dotenv";
 
 dotenv.config();
 const app = expresss(); // Create an Express application
 const PORT = process.env.PORT || 3000;
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 app.use(expresss.json()); // Middleware to parse JSON bodies
 
