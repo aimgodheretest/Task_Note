@@ -1,15 +1,21 @@
-const expresss = require("express");
-const notesRoutes = require("./routes/notesRoutes");
-const connectDB = require("./db/db");
-require("dotenv").config(); // Load environment variables from .env file
+import expresss from "express";
+import notesRoutes from "../src/routes/notesRoutes.js";
+import connectDB from "../src/db/db.js";
+import rateLimiter from "../src/middleware/rateLimiter.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = expresss(); // Create an Express application
-
-connectDB(); // Connect to the database
+const PORT = process.env.PORT || 3000;
 
 app.use(expresss.json()); // Middleware to parse JSON bodies
+
+app.use(rateLimiter); // Apply rate limiting middleware to all routes
+
 app.use("/api/notes", notesRoutes); // Use notes routes for all requests to /api/notes
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("Server started on PORT:", PORT);
+  });
 });

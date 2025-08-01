@@ -1,7 +1,7 @@
-const Note = require("../models/Note.js");
+import Note from "../models/Note.js";
 
 // Get all  notes
-async function getAllNotes(req, res) {
+export async function getAllNotes(req, res) {
   try {
     const notes = await Note.find().sort({ createdAt: -1 }); // Sort by createdAt in descending order(most recent first)
     res.status(200).json(notes);
@@ -14,7 +14,7 @@ async function getAllNotes(req, res) {
 }
 
 //Get a single note by ID
-async function getNoteById(req, res) {
+export async function getNoteById(req, res) {
   try {
     const note = await Note.findById(req.params.id);
 
@@ -35,7 +35,7 @@ async function getNoteById(req, res) {
 }
 
 //Create a new note
-async function createNote(req, res) {
+export async function createNote(req, res) {
   try {
     const { title, content } = req.body; // Destructure title and content from the request body
     const note = new Note({ title, content }); // Create a new Note instance
@@ -51,7 +51,7 @@ async function createNote(req, res) {
 }
 
 // Update an existing note
-async function updateNote(req, res) {
+export async function updateNote(req, res) {
   try {
     const { title, content } = req.body; // Destructure title and content from the request body
     const updatedNote = await Note.findByIdAndUpdate(
@@ -79,7 +79,7 @@ async function updateNote(req, res) {
 }
 
 // Delete a note
-async function deleteNote(req, res) {
+export async function deleteNote(req, res) {
   try {
     const deletedNote = await Note.findByIdAndDelete(req.params.id); // Find the note by ID and delete it
 
@@ -100,11 +100,3 @@ async function deleteNote(req, res) {
     });
   }
 }
-
-module.exports = {
-  getAllNotes,
-  createNote,
-  updateNote,
-  deleteNote,
-  getNoteById,
-};
