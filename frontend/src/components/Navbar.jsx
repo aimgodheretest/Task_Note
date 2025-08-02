@@ -6,7 +6,7 @@ function Navbar() {
       <div className="mx-auto max-w-6xl px-4 py-4">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl text-primary font-bold font-mono tracking-tighter">
-            ThinkBoard
+            TaskNote
           </h1>
           <div className="flex items-center gap-4">
             <Link to={"/create"} className="btn btn-primary">
